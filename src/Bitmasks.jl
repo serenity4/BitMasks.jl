@@ -5,6 +5,6 @@ import Base: ~, &, |, xor, isless, ==, in, values, convert, typemax, pairs, isze
 include("bitmask.jl")
 include("operations.jl")
 
-export @bitmask, enabled_flags, isatomic, combinations, combination_pairs
+export @bitmask, BitMask, enabled_flags, isatomic, combinations, combination_pairs
 
 end
