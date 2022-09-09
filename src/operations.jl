@@ -1,3 +1,5 @@
+read(io::IO, T::Type{<:BitMask{_T}}) where {_T} = T(read(io, _T))
+
 iszero(a::BitMask) = iszero(a.val)
 zero(a::T) where {T<:BitMask} = zero(T)
 zero(T::Type{<:BitMask{U}}) where {U} = T(zero(U))
