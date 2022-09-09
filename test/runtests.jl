@@ -35,9 +35,9 @@ end
     @test !in(BIT_A, BIT_B)
     @test in(2, BIT_AB)
     @test in(BIT_B, 3)
-    @test_throws "incompatible bitmasks" BIT_A & BIT_A_2
-    @test_throws "incompatible bitmasks" BIT_A == BIT_A_2
-    @test_throws "incompatible bitmasks" BIT_A in BIT_A_2
+    @test_throws ErrorException("Bitwise operation not allowed between incompatible bitmasks 'Mask', 'Mask2'") BIT_A & BIT_A_2
+    @test_throws ErrorException("Operation not allowed between incompatible bitmasks 'Mask', 'Mask2'") BIT_A == BIT_A_2
+    @test_throws ErrorException("Operation not allowed between incompatible bitmasks 'Mask', 'Mask2'") BIT_A in BIT_A_2
   end
 
   @testset "Bitmask utilities" begin
