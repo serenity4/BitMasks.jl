@@ -90,3 +90,9 @@ true
 julia> typemax(Mask)
 Mask(BIT_ABC)
 ```
+
+### Related packages
+
+This package aims to be relatively simple and designed to work with integers only. Similar packages with slightly different feature sets include:
+- [FlagSets.jl](https://github.com/jessymilare/FlagSets.jl)
+- [BitFlags.jl](https://github.com/jmert/BitFlags.jl)
