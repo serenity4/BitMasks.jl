@@ -6,9 +6,9 @@
 [![Coverage](https://codecov.io/gh/serenity4/Bitmasks.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/serenity4/Bitmasks.jl)
 [![ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://img.shields.io/badge/ColPrac-Contributor's%20Guide-blueviolet)](https://github.com/SciML/ColPrac)
 
-Utility package aimed at manipulating enumeration values as bitmasks. Bitmasks are combinations of boolean flags encoded as specific bits of an integer type. For example, 8 flags can be represented with a `UInt8`, from `0b1000000` to `0b00000001`. A bitmask instance could then have a value of `0b10101101` in this case.
+Lightweight package with zero dependencies aimed at manipulating bitmasks using an `@enum` like interface. Bitmasks are combinations of boolean flags encoded as specific bits of an integer type. For example, 8 flags can be represented with a `UInt8`, from `0b1000000` to `0b00000001`. A bitmask instance could then have a value of `0b10101101` in this case.
 
-This package provides a way to define bitmasks from bit values and bitmask presets, such as
+This package provides a way to define bitmasks from flag values and mask presets, and operators to manipulate them. First, you can create a bitmask type with
 
 ```julia
 julia> using Bitmasks
