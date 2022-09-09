@@ -31,7 +31,7 @@ Mask presets are optional, but can be handy to group parameters especially when 
 
 It is also possible to combine flags or masks to create new masks, for example
 
-```
+```julia
 julia> BIT_A | BIT_C
 Mask(BIT_A | BIT_C)
 
@@ -54,7 +54,7 @@ You will have noticed that a specific printing is defined which will try to comp
 
 Other utilities are defined, such as the extraction of all flags from a mask, conversion to/from integers and bits of extra type safety to avoid mixing flags coming from different masks:
 
-```
+```julia
 julia> enabled_flags(BIT_ABC)
 3-element Vector{Mask}:
  Mask(BIT_A)
@@ -80,7 +80,7 @@ ERROR: Bitwise operation not allowed between incompatible bitmasks 'Mask', 'Mask
 
 Finally, a few common `Base` methods were added for convenience:
 
-```
+```julia
 julia> zero(Mask)
 Mask()
 
