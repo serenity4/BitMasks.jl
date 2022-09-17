@@ -1,4 +1,4 @@
-module Bitmasks
+module BitMasks
 
 import Base: ~, &, |, xor, isless, ==, in, values, convert, typemax, pairs, iszero, zero, read
 

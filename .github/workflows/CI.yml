@@ -54,6 +54,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using Bitmasks
-            DocMeta.setdocmeta!(Bitmasks, :DocTestSetup, :(using Bitmasks); recursive=true)
-            doctest(Bitmasks)'
+            using BitMasks
+            DocMeta.setdocmeta!(BitMasks, :DocTestSetup, :(using BitMasks); recursive=true)
+            doctest(BitMasks)'

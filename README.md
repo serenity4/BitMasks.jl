@@ -1,17 +1,17 @@
-# Bitmasks
+# BitMasks
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://serenity4.github.io/Bitmasks.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://serenity4.github.io/Bitmasks.jl/dev/)
-[![Build Status](https://github.com/serenity4/Bitmasks.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/serenity4/Bitmasks.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/serenity4/Bitmasks.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/serenity4/Bitmasks.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://serenity4.github.io/BitMasks.jl/stable/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://serenity4.github.io/BitMasks.jl/dev/)
+[![Build Status](https://github.com/serenity4/BitMasks.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/serenity4/BitMasks.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Coverage](https://codecov.io/gh/serenity4/BitMasks.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/serenity4/BitMasks.jl)
 [![ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://img.shields.io/badge/ColPrac-Contributor's%20Guide-blueviolet)](https://github.com/SciML/ColPrac)
 
-Lightweight package with zero dependencies aimed at manipulating bitmasks using an `@enum` like interface. Bitmasks are combinations of boolean flags encoded as specific bits of an integer type. For example, 8 flags can be represented with a `UInt8`, from `0b1000000` to `0b00000001`. A bitmask instance could then have a value of `0b10101101` in this case.
+Lightweight package with zero dependencies aimed at manipulating BitMasks using an `@enum` like interface. BitMasks are combinations of boolean flags encoded as specific bits of an integer type. For example, 8 flags can be represented with a `UInt8`, from `0b1000000` to `0b00000001`. A bitmask instance could then have a value of `0b10101101` in this case.
 
-This package provides a way to define bitmasks from flag values and mask presets, and operators to manipulate them. First, you can create a bitmask type with
+This package provides a way to define BitMasks from flag values and mask presets, and operators to manipulate them. First, you can create a bitmask type with
 
 ```julia
-julia> using Bitmasks
+julia> using BitMasks
 
 julia> @bitmask Mask::UInt32 begin
   # Flags.
@@ -75,7 +75,7 @@ julia> @bitmask Mask2::UInt32 begin
 Mask2
 
 julia> BIT_A | BIT_B_2
-ERROR: Bitwise operation not allowed between incompatible bitmasks 'Mask', 'Mask2'
+ERROR: Bitwise operation not allowed between incompatible BitMasks 'Mask', 'Mask2'
 ```
 
 Finally, a few common `Base` methods were added for convenience:

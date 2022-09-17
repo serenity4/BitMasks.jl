@@ -1,3 +1,3 @@
 [deps]
-Bitmasks = "a3e06817-fd65-4797-8291-16f435bc2529"
+BitMasks = "a3e06817-fd65-4797-8291-16f435bc2529"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"

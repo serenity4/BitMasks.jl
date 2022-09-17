@@ -1,4 +1,4 @@
-using Bitmasks
+using BitMasks
 using Test
 
 @bitmask Mask::UInt32 begin
@@ -17,7 +17,7 @@ end
   BIT_AB_2 = 3
 end
 
-@testset "Bitmasks.jl" begin
+@testset "BitMasks.jl" begin
   @testset "Bitmask creation & operations" begin
     @test BIT_A & BIT_B == Mask(0) == zero(Mask)
     @test iszero(BIT_A & BIT_B)
@@ -35,9 +35,9 @@ end
     @test !in(BIT_A, BIT_B)
     @test in(2, BIT_AB)
     @test in(BIT_B, 3)
-    @test_throws ErrorException("Bitwise operation not allowed between incompatible bitmasks 'Mask', 'Mask2'") BIT_A & BIT_A_2
-    @test_throws ErrorException("Operation not allowed between incompatible bitmasks 'Mask', 'Mask2'") BIT_A == BIT_A_2
-    @test_throws ErrorException("Operation not allowed between incompatible bitmasks 'Mask', 'Mask2'") BIT_A in BIT_A_2
+    @test_throws ErrorException("Bitwise operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A & BIT_A_2
+    @test_throws ErrorException("Operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A == BIT_A_2
+    @test_throws ErrorException("Operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A in BIT_A_2
   end
 
   @testset "Bitmask utilities" begin
@@ -51,7 +51,7 @@ end
     @test (:BIT_ABC => BIT_ABC) == last(combination_pairs(Mask))
   end
 
-  @testset "Correct printing of bitmasks" begin
+  @testset "Correct printing of BitMasks" begin
     @test string(NO_BIT) == "Mask(NO_BIT)"
     @test string(zero(Mask2)) == "Mask2()"
     @test string(BIT_A) == "Mask(BIT_A)"

@@ -17,7 +17,7 @@ function combination_pairs end
         FLAG_C = 4
     end
 
-Enumeration of bitmask flags that can be combined with `&`, `|` and `xor`, forbidding the combination of flags from different bitmasks.
+Enumeration of bitmask flags that can be combined with `&`, `|` and `xor`, forbidding the combination of flags from different BitMasks.
 """
 macro bitmask(typedecl, expr)
   Meta.isexpr(typedecl, :(::), 2) || error("The first argument to @bitmask must be of the form 'type::eltype', got $typedecl")

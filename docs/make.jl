@@ -1,16 +1,16 @@
-using Bitmasks
+using BitMasks
 using Documenter
 
-DocMeta.setdocmeta!(Bitmasks, :DocTestSetup, :(using Bitmasks); recursive=true)
+DocMeta.setdocmeta!(BitMasks, :DocTestSetup, :(using BitMasks); recursive=true)
 
 makedocs(;
-    modules=[Bitmasks],
+    modules=[BitMasks],
     authors="Cédric BELMANT",
-    repo="https://github.com/serenity4/Bitmasks.jl/blob/{commit}{path}#{line}",
-    sitename="Bitmasks.jl",
+    repo="https://github.com/serenity4/BitMasks.jl/blob/{commit}{path}#{line}",
+    sitename="BitMasks.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://serenity4.github.io/Bitmasks.jl",
+        canonical="https://serenity4.github.io/BitMasks.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/serenity4/Bitmasks.jl",
+    repo="github.com/serenity4/BitMasks.jl",
     devbranch="main",
 )

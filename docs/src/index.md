@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = Bitmasks
+CurrentModule = BitMasks
 ```
 
-# Bitmasks
+# BitMasks
 
-Documentation for [Bitmasks](https://github.com/serenity4/Bitmasks.jl).
+Documentation for [BitMasks](https://github.com/serenity4/BitMasks.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [Bitmasks]
+Modules = [BitMasks]
 ```
