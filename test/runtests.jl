@@ -17,6 +17,10 @@ end
   BIT_AB_2 = 3
 end
 
+@bitmask Mask3::UInt32 begin
+  BIT_A_3 = 0x0000000080000000
+end
+
 @testset "BitMasks.jl" begin
   @testset "Bitmask creation & operations" begin
     @test BIT_A & BIT_B == Mask(0) == zero(Mask)

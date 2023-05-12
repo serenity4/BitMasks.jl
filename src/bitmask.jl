@@ -32,7 +32,7 @@ macro bitmask(typedecl, expr)
   for decl in decls
     (identifier, value) = decl.args
     isa(value, Integer) || error("Expected integer value on the right-hand side, got $value.")
-    dest = !iszero(log2(Int(value)) % 1.0) && !iszero(value) ? combination_pairs : pairs
+    dest = !iszero(log2(UInt64(value)) % 1.0) && !iszero(value) ? combination_pairs : pairs
     push!(dest, :($(QuoteNode(identifier)) => $etype($value)))
   end
   values = [last(pair.args) for pair in pairs]
