@@ -7,20 +7,39 @@ function generate_bitmask_flag(type, decl)
   :(const $identifier = $type($value))
 end
 
+"""
+    combinations(T::Type{<:BitMask})
+
+Return a vector of values of type `T` that do not define a new flag, but rather define combinations of flags.
+"""
 function combinations end
+
+"""
+    combination_pairs(T::Type{<:BitMask})
+
+Return a vector of `name => combination::T` pairs for all values of type `T` that that do not define a new flag, but rather define combinations of flags.
+
+See also: [`combinations`](@ref)
+"""
 function combination_pairs end
 
 """
-    @bitmask BitFlags::UInt32 begin
+    @bitmask [exported = false] BitFlags::UInt32 begin
         FLAG_A = 1
         FLAG_B = 2
         FLAG_C = 4
     end
 
 Enumeration of bitmask flags that can be combined with `&`, `|` and `xor`, forbidding the combination of flags from different BitMasks.
+
+If `exported` is set to true with a first argument of the form `exported = <false|true>`, then all the values and the defined type will be exported.
 """
-macro bitmask(typedecl, expr)
+macro bitmask(typedecl, expr) generate_bitmask(typedecl, expr, :(exported = false)) end
+macro bitmask(exported, typedecl, expr) generate_bitmask(typedecl, expr, exported) end
+
+function generate_bitmask(typedecl, expr, exported)
   Meta.isexpr(typedecl, :(::), 2) || error("The first argument to @bitmask must be of the form 'type::eltype', got $typedecl")
+  exported = Meta.isexpr(exported, :(=)) && isa(exported.args[2], Bool) ? exported.args[2]::Bool : error("Expected option `exported = <false|true>`, got $(repr(exported))")
   type, eltype = typedecl.args
   if !Meta.isexpr(expr, :block)
     expr = Expr(:block, expr)
@@ -47,8 +66,15 @@ macro bitmask(typedecl, expr)
     Base.pairs(::Type{$etype}) = [$(pairs...)]
     $(@__MODULE__()).combinations(::Type{$etype}) = [$(combinations...)]
     $(@__MODULE__()).combination_pairs(::Type{$etype}) = [$(combination_pairs...)]
-    $etype
   end
+
+  if exported
+    exp = Expr(:export, type)
+    append!(exp.args, [pair.args[2].value::Symbol for pair in pairs])
+    append!(exp.args, [pair.args[2].value::Symbol for pair in combination_pairs])
+    push!(ex.args, exp)
+  end
+  push!(ex.args, etype)
 
   ex
 end

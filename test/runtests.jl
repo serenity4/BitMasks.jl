@@ -21,6 +21,20 @@ end
   BIT_A_3 = 0x0000000080000000
 end
 
+module TestModule
+  using BitMasks
+  @bitmask Mask4::UInt32 begin
+    BIT_A_4 = 1
+    BIT_B_4 = 2
+    BIT_AB_4 = 3
+  end
+  @bitmask exported = true Mask5::UInt32 begin
+    BIT_A_5 = 1
+    BIT_B_5 = 2
+    BIT_AB_5 = 3
+  end
+end
+
 @testset "BitMasks.jl" begin
   @testset "Bitmask creation & operations" begin
     @test BIT_A & BIT_B == Mask(0) == zero(Mask)
@@ -62,5 +76,10 @@ end
     @test string(BIT_C) == "Mask(BIT_C)"
     @test string(BIT_A | BIT_C) == "Mask(BIT_A | BIT_C)"
     @test string(BIT_ABC) == "Mask(BIT_ABC)"
+  end
+
+  @testset "Automatic exportation of defined values" begin
+    @test !in(:BIT_A_4, names(TestModule))
+    @test [:BIT_A_5, :BIT_AB_5, :Mask5] ⊆ names(TestModule)
   end
 end;
