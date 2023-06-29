@@ -1,5 +1,9 @@
 # Changelog for BitMasks.jl
 
+## Version `v0.1.3`
+
+- ![Enhancement][badge-enhancement] It is now possible to provide non-integer values when constructing bitmask values, allowing e.g. `BIT_A | BIT_B` to construct combinations or `2^6` to save yourself some power arithmetic.
+
 ## Version `v0.1.2`
 
 - ![Feature][badge-feature] A first argument `exported = <true|false>` is now supported, which controls whether all generated values should be exported. Defaults to `false`.
