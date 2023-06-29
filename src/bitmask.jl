@@ -32,7 +32,8 @@ function combination_pairs end
     @bitmask [exported = false] BitFlags::UInt32 begin
         FLAG_A = 1
         FLAG_B = 2
-        FLAG_C = 4
+        FLAG_C = 2^2 # == 4 (if you didn't know)
+        FLAG_AB = FLAG_A | FLAG_B
     end
 
 Enumeration of bitmask flags that can be combined with `&`, `|` and `xor`, forbidding the combination of flags from different BitMasks.
@@ -61,9 +62,8 @@ function generate_bitmask(typedecl, expr, exported)
     push!(definitions, decl)
     has_docstring(decl) && (decl = docstring_operand(decl))
     (identifier, value) = decl.args
-    isa(value, Integer) || error("Expected integer value on the right-hand side, got $value.")
-    dest = !iszero(log2(UInt64(value)) % 1.0) && !iszero(value) ? combination_pairs : pairs
-    push!(dest, :($(QuoteNode(identifier)) => $etype($value)))
+    dest = !isa(value, Integer) || !iszero(log2(UInt64(value)) % 1.0) && !iszero(value) ? combination_pairs : pairs
+    push!(dest, :($(QuoteNode(identifier)) => $etype($(esc(value)))))
   end
   values = [last(pair.args) for pair in pairs]
   combinations = [last(pair.args) for pair in combination_pairs]
@@ -72,6 +72,7 @@ function generate_bitmask(typedecl, expr, exported)
     Base.@__doc__ struct $type <: BitMask{$eltype}
       val::$eltype
     end
+    $(esc(:($type(x::$type) = x)))
     $(esc.(generate_bitmask_flag.(type, definitions))...)
     Base.values(::Type{$etype}) = [$(values...)]
     Base.pairs(::Type{$etype}) = [$(pairs...)]

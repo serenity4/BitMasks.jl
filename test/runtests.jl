@@ -7,7 +7,7 @@ using Test
   BIT_B = 2
   BIT_AB = 3
   BIT_C = 4
-  BIT_BC = 6
+  BIT_BC = BIT_B | BIT_C
   BIT_ABC = 7
 end
 
