@@ -37,7 +37,7 @@ end
 
 @testset "BitMasks.jl" begin
   @testset "Bitmask creation & operations" begin
-    @test BIT_A & BIT_B == Mask(0) == zero(Mask)
+    @test BIT_A & BIT_B == Mask(0) == zero(Mask) == zero(BIT_A)
     @test iszero(BIT_A & BIT_B)
     @test BIT_A | BIT_B == BIT_AB
     @test !iszero(BIT_AB)
@@ -53,7 +53,13 @@ end
     @test !in(BIT_A, BIT_B)
     @test in(2, BIT_AB)
     @test in(BIT_B, 3)
+    @test Int(BIT_B) == convert(Int, BIT_B) == 2
+    @test convert(Mask, 2) == BIT_B
+    @test typemax(Mask) == Mask(typemax(UInt32))
     @test_throws ErrorException("Bitwise operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A & BIT_A_2
+    @test_throws ErrorException("Bitwise operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A ⊻ BIT_A_2
+    @test_throws ErrorException("Bitwise operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A | BIT_A_2
+    @test_throws ErrorException("Bitwise operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A < BIT_A_2
     @test_throws ErrorException("Operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A == BIT_A_2
     @test_throws ErrorException("Operation not allowed between incompatible BitMasks 'Mask', 'Mask2'") BIT_A in BIT_A_2
   end
@@ -67,6 +73,7 @@ end
     @test length(combinations(Mask)) == 3
     @test (:BIT_C => BIT_C) == last(pairs(Mask))
     @test (:BIT_ABC => BIT_ABC) == last(combination_pairs(Mask))
+    @test enabled_flags(BIT_AB) == [NO_BIT, BIT_A, BIT_B]
   end
 
   @testset "Correct printing of BitMasks" begin
