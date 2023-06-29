@@ -13,6 +13,7 @@ end
 
 @bitmask Mask2::UInt32 begin
   BIT_A_2 = 1
+  "Here's some docstring."
   BIT_B_2 = 2
   BIT_AB_2 = 3
 end

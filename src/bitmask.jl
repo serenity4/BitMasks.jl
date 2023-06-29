@@ -3,8 +3,13 @@ abstract type BitMask{T<:Unsigned} end
 Base.broadcastable(x::BitMask) = Ref(x)
 
 function generate_bitmask_flag(type, decl)
-  identifier, value = decl.args
-  :(const $identifier = $type($value))
+  if has_docstring(decl)
+    identifier, value = docstring_operand(decl).args
+    Expr(:macrocall, decl.args[1], decl.args[2], decl.args[3], :(const $identifier = $type($value)))
+  else
+    identifier, value = decl.args
+    :(const $identifier = $type($value))
+  end
 end
 
 """
@@ -37,6 +42,9 @@ If `exported` is set to true with a first argument of the form `exported = <fals
 macro bitmask(typedecl, expr) generate_bitmask(typedecl, expr, :(exported = false)) end
 macro bitmask(exported, typedecl, expr) generate_bitmask(typedecl, expr, exported) end
 
+has_docstring(ex) = Meta.isexpr(ex, :macrocall) && ex.args[1] == Core.GlobalRef(Core, Symbol("@doc"))
+docstring_operand(ex::Expr) = ex.args[4]
+
 function generate_bitmask(typedecl, expr, exported)
   Meta.isexpr(typedecl, :(::), 2) || error("The first argument to @bitmask must be of the form 'type::eltype', got $typedecl")
   exported = Meta.isexpr(exported, :(=)) && isa(exported.args[2], Bool) ? exported.args[2]::Bool : error("Expected option `exported = <false|true>`, got $(repr(exported))")
@@ -48,7 +56,10 @@ function generate_bitmask(typedecl, expr, exported)
   etype = esc(type)
   pairs = Expr[]
   combination_pairs = Expr[]
+  definitions = Expr[]
   for decl in decls
+    push!(definitions, decl)
+    has_docstring(decl) && (decl = docstring_operand(decl))
     (identifier, value) = decl.args
     isa(value, Integer) || error("Expected integer value on the right-hand side, got $value.")
     dest = !iszero(log2(UInt64(value)) % 1.0) && !iszero(value) ? combination_pairs : pairs
@@ -61,7 +72,7 @@ function generate_bitmask(typedecl, expr, exported)
     Base.@__doc__ struct $type <: BitMask{$eltype}
       val::$eltype
     end
-    $(esc.(generate_bitmask_flag.(type, decls))...)
+    $(esc.(generate_bitmask_flag.(type, definitions))...)
     Base.values(::Type{$etype}) = [$(values...)]
     Base.pairs(::Type{$etype}) = [$(pairs...)]
     $(@__MODULE__()).combinations(::Type{$etype}) = [$(combinations...)]
