@@ -91,6 +91,15 @@ julia> typemax(Mask)
 Mask(BIT_ABC)
 ```
 
+You can also choose to export all defined symbols (and the defined type) with the parameter `export = true` (which is `false` by default):
+```julia
+@bitmask exported = true Mask3::UInt32 begin
+    BIT_A_3 = 1
+    BIT_B_3 = 2
+    BIT_AB_3 = BIT_A_3 | BIT_B_3
+  end
+```
+
 ### Related packages
 
 This package aims to be relatively simple and designed to work with integers only. Similar packages with slightly different feature sets include:
