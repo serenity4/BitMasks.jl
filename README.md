@@ -20,9 +20,9 @@ julia> @bitmask Mask::UInt32 begin
   BIT_C = 4
 
   # Mask presets.
-  BIT_AB = 3
-  BIT_BC = 6
-  BIT_ABC = 7
+  BIT_AB = BIT_A | BIT_B
+  BIT_BC = BIT_B | BIT_C
+  BIT_ABC = BIT_A | BIT_B | BIT_C
 end
 Mask
 ```
@@ -70,7 +70,7 @@ Mask(BIT_A)
 julia> @bitmask Mask2::UInt32 begin
          BIT_A_2 = 1
          BIT_B_2 = 2
-         BIT_AB_2 = 3
+         BIT_AB_2 = BIT_A_2 | BIT_B_2
        end
 Mask2
 
