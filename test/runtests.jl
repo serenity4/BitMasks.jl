@@ -71,6 +71,7 @@ end
     @test isatomic(NO_BIT)
     @test first(values(Mask)) == NO_BIT
     @test length(values(Mask)) == 4
+    @test instances(Mask) == values(Mask)
     @test length(combinations(Mask)) == 3
     @test (:BIT_C => BIT_C) == last(pairs(Mask))
     @test (:BIT_ABC => BIT_ABC) == last(combination_pairs(Mask))

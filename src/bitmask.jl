@@ -75,6 +75,7 @@ function generate_bitmask(typedecl, expr, exported)
     $(esc(:($type(x::$type) = x)))
     $(esc.(generate_bitmask_flag.(type, definitions))...)
     Base.values(::Type{$etype}) = [$(values...)]
+    Base.instances(::Type{$etype}) = Base.values($etype)
     Base.pairs(::Type{$etype}) = [$(pairs...)]
     $(@__MODULE__()).combinations(::Type{$etype}) = [$(combinations...)]
     $(@__MODULE__()).combination_pairs(::Type{$etype}) = [$(combination_pairs...)]
