@@ -3,6 +3,7 @@ read(io::IO, T::Type{<:BitMask{_T}}) where {_T} = T(read(io, _T))
 iszero(a::BitMask) = iszero(a.val)
 zero(a::T) where {T<:BitMask} = zero(T)
 zero(T::Type{<:BitMask{U}}) where {U} = T(zero(U))
+(::Type{T})() where {T<:BitMask} = zero(T)
 (~)(a::T) where {T<:BitMask} = T(~a.val)
 
 (&)(a::BitMask, b::BitMask) = error("Bitwise operation not allowed between incompatible BitMasks '$(typeof(a))', '$(typeof(b))'")
