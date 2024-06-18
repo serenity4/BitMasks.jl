@@ -92,8 +92,7 @@ function generate_bitmask(typedecl, expr, exported)
   ex
 end
 
-function Base.show(io::IO, mask::T) where {T<:BitMask}
-  print(io, nameof(T), '(')
+function print_bitmask_name(io::IO, mask::T) where {T<:BitMask}
   init = mask
   first = true
 
@@ -117,6 +116,12 @@ function Base.show(io::IO, mask::T) where {T<:BitMask}
     end
     iszero(mask) && iszero(flag) && break
   end
+end
 
+function Base.show(io::IO, mask::T) where {T<:BitMask}
+  print(io, nameof(T), '(')
+  print_bitmask_name(io, mask)
   print(io, ')')
 end
+
+bitmask_name(mask::BitMask) = sprint(print_bitmask_name, mask)

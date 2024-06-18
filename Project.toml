@@ -1,7 +1,7 @@
 name = "BitMasks"
 uuid = "a3e06817-fd65-4797-8291-16f435bc2529"
 authors = ["Cédric BELMANT"]
-version = "0.1.5"
+version = "0.1.6"
 
 [compat]
 julia = "1.7"

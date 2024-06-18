@@ -86,6 +86,7 @@ end
     @test string(BIT_C) == "Mask(BIT_C)"
     @test string(BIT_A | BIT_C) == "Mask(BIT_A | BIT_C)"
     @test string(BIT_ABC) == "Mask(BIT_ABC)"
+    @test bitmask_name(BIT_A | BIT_C) == "BIT_A | BIT_C"
   end
 
   @testset "Automatic exportation of defined values" begin
