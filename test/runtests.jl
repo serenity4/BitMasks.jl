@@ -38,6 +38,8 @@ end
 
 @testset "BitMasks.jl" begin
   @testset "Bitmask creation & operations" begin
+    @test convert(Integer, BIT_A) === 0x00000001
+    @test convert(Integer, BIT_ABC) === 0x00000007
     @test Mask() == Mask(0) == zero(Mask)
     @test BIT_A & BIT_B == Mask(0) == zero(Mask) == zero(BIT_A)
     @test iszero(BIT_A & BIT_B)

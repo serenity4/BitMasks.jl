@@ -52,6 +52,13 @@ where `|` performs the union of different flags or masks, `&` their intersection
 
 You will have noticed that a specific printing is defined which will try to compact all combinations based on the provided presets to reduce verbosity.
 
+If you need access to the underlying integer value, you can use convert any `BitMask` to an `Integer`:
+
+```julia
+julia> convert(Integer, BIT_C)
+0x00000004
+```
+
 Other utilities are defined, such as the extraction of all flags from a mask, conversion to/from integers and bits of extra type safety to avoid mixing flags coming from different masks:
 
 ```julia
