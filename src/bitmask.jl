@@ -50,6 +50,7 @@ function generate_bitmask(typedecl, expr, exported)
   Meta.isexpr(typedecl, :(::), 2) || error("The first argument to @bitmask must be of the form 'type::eltype', got $typedecl")
   exported = Meta.isexpr(exported, :(=)) && isa(exported.args[2], Bool) ? exported.args[2]::Bool : error("Expected option `exported = <false|true>`, got $(repr(exported))")
   type, eltype = typedecl.args
+  eltype = esc(eltype)
   if !Meta.isexpr(expr, :block)
     expr = Expr(:block, expr)
   end
