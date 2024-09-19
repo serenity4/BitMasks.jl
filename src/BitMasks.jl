@@ -1,6 +1,6 @@
 module BitMasks
 
-import Base: ~, &, |, xor, isless, ==, in, values, convert, typemax, pairs, iszero, zero, read
+import Base: ~, &, |, xor, isless, ==, in, values, convert, typemax, pairs, iszero, zero, read, write
 
 include("bitmask.jl")
 include("operations.jl")
