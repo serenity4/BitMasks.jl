@@ -11,6 +11,7 @@ using Test
   BIT_ABC = 7
 end
 
+"This is Mask2!"
 @bitmask Mask2::UInt32 begin
   BIT_A_2 = 1
   "Here's some docstring."
@@ -34,6 +35,17 @@ module TestModule
     BIT_B_5 = 2
     BIT_AB_5 = 3
   end
+end
+
+@bitmask Mask6::UInt32 begin
+  BIT_A_6
+  BIT_B_6
+  BIT_C_6 = 8
+  BIT_D_6
+  "Here is another docstring."
+  BIT_E_6
+  BIT_AB_6 = BIT_A_6 | BIT_B_6
+  BIT_F_6
 end
 
 @testset "BitMasks.jl" begin
@@ -94,5 +106,19 @@ end
   @testset "Automatic exportation of defined values" begin
     @test !in(:BIT_A_4, names(TestModule))
     @test [:BIT_A_5, :BIT_AB_5, :Mask5] ⊆ names(TestModule)
+  end
+
+  @testset "Filling unspecified values" begin
+    @test BIT_A_6 == Mask6(1)
+    @test BIT_B_6 == Mask6(2)
+    @test BIT_D_6 == Mask6(16)
+    @test BIT_E_6 == Mask6(32)
+    @test BIT_F_6 == Mask6(64)
+  end
+
+  @testset "Docstring propagation" begin
+    @test string(Core.@doc(Mask2)) == "This is Mask2!\n"
+    @test string(Core.@doc(BIT_B_2)) == "Here's some docstring.\n"
+    @test string(Core.@doc(BIT_E_6)) == "Here is another docstring.\n"
   end
 end;
