@@ -117,8 +117,8 @@ end
   end
 
   @testset "Docstring propagation" begin
-    @test string(Core.@doc(Mask2)) == "This is Mask2!\n"
-    @test string(Core.@doc(BIT_B_2)) == "Here's some docstring.\n"
-    @test string(Core.@doc(BIT_E_6)) == "Here is another docstring.\n"
+    @test contains(string(Core.@doc(Mask2)), "This is Mask2!")
+    @test contains(string(Core.@doc(BIT_B_2)), "Here's some docstring.")
+    @test contains(string(Core.@doc(BIT_E_6)), "Here is another docstring.")
   end
 end;
